@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.serialization") version "1.6.10"
     id("com.github.johnrengelman.shadow") version "7.0.0"
+    `maven-publish`
 }
 
 java {
@@ -60,6 +61,28 @@ tasks {
                 from(archiveFile)
                 val plugins = File(rootDir, ".debug/plugins/")
                 into(if (File(plugins, archiveFileName.get()).exists()) File(plugins, "update") else plugins)
+            }
+        }
+    }
+}
+
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "xyz.r2turntrue.survival"
+            artifactId = "controller"
+            version = "0.0.1-SNAPSHOT"
+
+            from(components["java"])
+        }
+    }
+    repositories {
+        maven {
+            url = uri("https://repo.projecttl.net/repository/maven-snapshots/")
+            credentials {
+                username = System.getenv("USERNAME")
+                password = System.getenv("TOKEN")
             }
         }
     }

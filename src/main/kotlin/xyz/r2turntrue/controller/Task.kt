@@ -1,6 +1,7 @@
 package xyz.r2turntrue.controller
 
 import org.bukkit.Bukkit
+import xyz.r2turntrue.controller.api.Controller
 import xyz.r2turntrue.controller.api.PlayerMorphSkillEvent
 
 object Task: Runnable {
@@ -14,7 +15,7 @@ object Task: Runnable {
                 EventListener.pm.callEvent(evt)
 
                 if(!evt.isCancelled) {
-                    EventListener.exitMorph(player)
+                    Controller.exitMorph(player)
                     continue
                 }
             }
