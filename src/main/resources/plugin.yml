@@ -1,6 +1,6 @@
-name: ${pluginName}
-version: ${version}
-main: ${group}.${packageName}.plugin.${pluginName}Plugin
+name: Controller
+version: 1.0.0
+main: xyz.r2turntrue.controller.Controller
 api-version: 1.18
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:1.6.10

@@ -12,11 +12,14 @@ java {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven(url = "https://papermc.io/repo/repository/maven-public/")
+    maven("https://repo.dmulloy2.net/repository/public/")
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot:1.18.1-R0.1-SNAPSHOT")
 
     implementation(kotlin("stdlib"))
 }
@@ -35,7 +38,7 @@ tasks {
 
     create<Jar>("paperJar") {
         from(sourceSets["main"].output)
-        archiveBaseName.set(project.extra.properties["pluginName"].toString())
+        archiveBaseName.set(project.name)
         archiveVersion.set("") // For bukkit plugin update
 
         doLast {
@@ -49,7 +52,7 @@ tasks {
 
     shadowJar {
         from(sourceSets["main"].output)
-        archiveBaseName.set(project.extra.properties["pluginName"].toString())
+        archiveBaseName.set(project.name)
         archiveVersion.set("") // For bukkit plugin update
 
         doLast {
