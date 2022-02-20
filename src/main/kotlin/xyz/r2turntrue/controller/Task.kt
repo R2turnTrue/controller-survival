@@ -1,6 +1,7 @@
 package xyz.r2turntrue.controller
 
 import org.bukkit.Bukkit
+import xyz.r2turntrue.controller.api.PlayerMorphSkillEvent
 
 object Task: Runnable {
 
@@ -9,8 +10,13 @@ object Task: Runnable {
             val player = Bukkit.getPlayer(entry.key) ?: continue
 
             if(entry.value.health <= 0) {
-                EventListener.exitMorph(player)
-                continue
+                val evt = PlayerMorphSkillEvent(player, entry.value)
+                EventListener.pm.callEvent(evt)
+
+                if(!evt.isCancelled) {
+                    EventListener.exitMorph(player)
+                    continue
+                }
             }
 
             entry.value.teleport(player.location)
